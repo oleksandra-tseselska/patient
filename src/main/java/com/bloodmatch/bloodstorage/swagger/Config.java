@@ -28,10 +28,10 @@ public class Config {
 
     private Docket appendTags(Docket docket) {
         return docket.tags(
-                new Tag(DescriptionVariables.BLOOD_INFO,
-                        "Used to get, create, update and delete blood info"),
-                new Tag(DescriptionVariables.BLOOD_STORAGE,
-                        "Used to get, create, update and delete blood storage"));
+                new Tag(DescriptionVariables.BLOOD_GROUP,
+                        "Used to get blood group"),
+                new Tag(DescriptionVariables.PATIENT,
+                        "Used to get, create, update patient"));
     }
 
     private ApiInfo apiInfo() {

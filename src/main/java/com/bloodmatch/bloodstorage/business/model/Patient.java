@@ -33,7 +33,10 @@ public class Patient {
     @NotBlank(message = "Phone number is mandatory")
     @Pattern(regexp = "\\d{8,15}", message = "Phone numbers must contain from 8 to 15 digits.")
     String phoneNumber;
+    @ApiModelProperty(notes = "The unique number of patient")
+    String uniqueNumber;
     @ApiModelProperty(value = "Blood group of the patient")
+    @NotNull
     private Long bloodGroupId;
     @ApiModelProperty(value = "Hospital where a patient located")
     private Long hospitalId;

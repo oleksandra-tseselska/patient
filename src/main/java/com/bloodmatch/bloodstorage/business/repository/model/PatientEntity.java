@@ -38,6 +38,9 @@ public class PatientEntity {
     @Column(name = "phone_number")
     String phoneNumber;
 
+    @Column(name = "unique_number", unique = true)
+    private String uniqueNumber;
+
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,
                     CascadeType.DETACH, CascadeType.REFRESH})
