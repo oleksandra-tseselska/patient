@@ -95,10 +95,29 @@ public class PatientController {
     public ResponseEntity<List<Patient>> findPatientByFirstNameAndLastNameOrUniqueNumber(
             @ApiParam(value = "First name") @RequestParam(required = false) String firstName,
             @ApiParam(value = "Last name") @RequestParam(required = false) String lastName,
-            @ApiParam(value = "Unique number", required = true) @RequestParam String uniqueNumber
+            @ApiParam(value = "Unique number") @RequestParam(required = false) String uniqueNumber
     ) {
         List<Patient> patients = service.findPatientByFirstNameAndLastNameOrUniqueNumber(firstName, lastName, uniqueNumber);
         log.info("Patient: {} found", patients);
         return new ResponseEntity<>(patients, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Find patient Id by providing unique number",
+            notes = "Returns the id of patient",
+            response = Patient.class,
+            responseContainer = "Long")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = HTMLResponseMessages.HTTP_200),
+            @ApiResponse(code = 400, message = HTMLResponseMessages.HTTP_400),
+            @ApiResponse(code = 404, message = HTMLResponseMessages.HTTP_404),
+            @ApiResponse(code = 500, message = HTMLResponseMessages.HTTP_500)
+    })
+    @GetMapping("/findId")
+    public ResponseEntity<Long> findPatientIdByUniqueNumber(
+            @ApiParam(value = "Unique number", required = true) @RequestParam String uniqueNumber
+    ) {
+        Long patientId = service.findPatientBloodIdByUniqueNumber(uniqueNumber);
+        log.info("Patient id: {} found", patientId);
+        return new ResponseEntity<>(patientId, HttpStatus.OK);
     }
 }

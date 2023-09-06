@@ -49,13 +49,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ErrorResponse handleIllegalArgumentException(NoSuchElementException ex) {
+    public ErrorResponse handleIllegalArgumentException(WebRequest request, NoSuchElementException ex) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setTimestamp(LocalDateTime.now());
         errorResponse.setMessage(ex.getMessage());
-        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResponse.setPath(request.getDescription(false));
+        errorResponse.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
         return errorResponse;
     }
 
@@ -67,7 +69,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 status.value(),
                 status.getReasonPhrase(),
-                ex.getMessage() + "or Invalid request",
+                ex.getMessage() + " or Invalid request",
                 request.getDescription(false));
     }
 }

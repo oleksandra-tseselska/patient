@@ -12,4 +12,6 @@ public interface PatientService {
     List<Patient> findPatientByBloodGroupAndOrUrgencyAndOrHospitalAddress(Long bloodGroupId, Boolean urgent, String hospitalAddress);
 
     List<Patient> findPatientByFirstNameAndLastNameOrUniqueNumber(String firstName, String lastName, String uniqueNumber);
+
+    Long findPatientBloodIdByUniqueNumber(String uniqueNumber);
 }
